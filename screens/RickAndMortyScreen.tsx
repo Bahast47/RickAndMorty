@@ -1,7 +1,9 @@
-import {SafeAreaView, StyleSheet, Text, View, ActivityIndicator, Button} from "react-native";
-import RickAndMortyApi, {stuff} from "../api/RickAndMortyApi";
+import {SafeAreaView, StyleSheet, Text, View, Button} from "react-native";
+import RickAndMortyApi, {nextPage, previousPage, stuff} from "../api/RickAndMortyApi";
 import useApi from "../hooks/useApi";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
+
+
 
 const styles = StyleSheet.create({
     characterId: {fontSize: 24, marginBottom: 20},
@@ -9,12 +11,16 @@ const styles = StyleSheet.create({
     characterImage: {width: 240, height: 240}
 });
 
+
 export default function RickAndMortyScreen() {
     const {data: character, loading, error, request: getCharacters} = useApi<stuff>(RickAndMortyApi.getCharacters)
 
     useEffect(() => {
         getCharacters();
     },[character]);
+
+
+
 
     return (
         <SafeAreaView>
@@ -29,10 +35,12 @@ export default function RickAndMortyScreen() {
                     )
                 })}
 
-                    <Button title="Next" onPress={() => getCharacters()}/>
+                    <Button title="Next"  onPress={() => nextPage()} />
+                    <Button title="Previous"  onPress={() => previousPage()} />
                 </div>
             </View>
         </SafeAreaView>
+
     );
 
 

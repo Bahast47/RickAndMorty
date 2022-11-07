@@ -12,7 +12,11 @@ export type stuff ={
     }[]
 };
 
-const getCharacters = async (id: number) => {
+
+let id = 1;
+
+
+const getCharacters = async () => {
         try {
             const response = await Axios.get<stuff>(`?page=` + id)
             return response.data
@@ -23,6 +27,20 @@ const getCharacters = async (id: number) => {
 }
 
 
+export function nextPage() {
+    window.scrollTo(0, 0)
+    return id++
+}
+
+export function previousPage() {
+    if (1 !< id) {
+        window.scrollTo(0, 0)
+        return id--
+    }
+
+}
+
+
 export default  {
-    getCharacters
+    getCharacters,
 }
